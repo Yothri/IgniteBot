@@ -25,5 +25,25 @@ namespace Engine
                 Networking.SendPacket(p);
             }
         }
+
+        private void btnSetTarget_Click(object sender, System.EventArgs e)
+        {
+            Networking.SendSetTarget(uint.Parse(txtTargetId.Text), byte.Parse(txtSetTargetBClear.Text));
+        }
+
+        private void btnSetDestObj_Click(object sender, System.EventArgs e)
+        {
+            Networking.SendPlayerDestObj(uint.Parse(txtTargetId.Text), float.Parse(txtSetDestObjRange.Text));
+        }
+
+        private void btnMeleeAttack_Click(object sender, System.EventArgs e)
+        {
+            Networking.SendMeleeAttack(uint.Parse(txtAtkMsg.Text), uint.Parse(txtTargetId.Text), 0, 65536, 0.085f);
+        }
+
+        private void btnLoadFocusedObjId_Click(object sender, System.EventArgs e)
+        {
+            txtTargetId.Text = WorldMng.Instance.GetWorld().GetFocusedObj()?.GetObjId().ToString();
+        }
     }
 }

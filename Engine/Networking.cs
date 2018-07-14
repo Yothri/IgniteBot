@@ -63,9 +63,48 @@ namespace Engine
         {
             using (var packet = new NetPacket())
             {
+#if IGNITE
                 packet.Write(0x79);
+#else
+                packet.Write(0x00ff0023);
+#endif
                 packet.Write(targetId);
                 packet.Write(bClear);
+
+                SendPacket(packet);
+            }
+        }
+
+        public static void SendPlayerDestObj(uint objId, float range)
+        {
+            using (var packet = new NetPacket())
+            {
+#if IGNITE
+                throw new NotImplementedException();
+#else
+                packet.Write(0xffffff07);
+#endif
+                packet.Write(objId);
+                packet.Write(range);
+
+                SendPacket(packet);
+            }
+        }
+
+        public static void SendMeleeAttack(uint atkMsg, uint objId, int nparam, int nparam2, float fval)
+        {
+            using (var packet = new NetPacket())
+            {
+#if IGNITE
+                throw new NotImplementedException();
+#else
+                packet.Write(0x00ff0010);
+#endif
+                packet.Write(atkMsg);
+                packet.Write(objId);
+                packet.Write(nparam);
+                packet.Write(nparam2);
+                packet.Write(fval);
 
                 SendPacket(packet);
             }
